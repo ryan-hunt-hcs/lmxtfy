@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A playful way to ask an AI question for someone else." />
+    <title>Let Me X That For You</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <a class="brand" href="/" aria-label="Let Me X That For You home">
+        <span class="brand-mark">LM</span><span>XTFY</span>
+      </a>
+
+      <section id="creator" class="creator panel" aria-labelledby="creator-title">
+        <p class="eyebrow">A helpful little nudge</p>
+        <h1 id="creator-title">Let me <em>ask AI</em> that for you.</h1>
+        <p class="lede">Make a playful link that types out a question for someone who could have asked it themselves.</p>
+
+        <form id="prompt-form" class="prompt-form">
+          <label for="prompt">What should they ask?</label>
+          <div class="prompt-box">
+            <textarea id="prompt" name="prompt" maxlength="800" required placeholder="How do I turn a PDF into a Word document?" autofocus></textarea>
+            <span id="counter" aria-live="polite">0 / 800</span>
+          </div>
+          <button class="primary-button" type="submit">Make the link <span aria-hidden="true">↗</span></button>
+        </form>
+
+        <p class="fine-print">No sign-in. No prompt database. The question lives only in the link you share.</p>
+      </section>
+
+      <section id="share" class="share panel" hidden aria-labelledby="share-title">
+        <p class="eyebrow">Ready for delivery</p>
+        <h1 id="share-title">Your gentle roast is ready.</h1>
+        <p class="lede">Send this link. It will type the question out, then ceremoniously submit it.</p>
+        <div class="share-row">
+          <input id="share-link" readonly aria-label="Share link" />
+          <button id="copy-button" class="primary-button" type="button">Copy link</button>
+        </div>
+        <button id="make-another" class="text-button" type="button">Make another one</button>
+      </section>
+
+      <section id="viewer" class="viewer" hidden aria-live="polite">
+        <div class="viewer-topline">
+          <span class="status-dot"></span>
+          <span id="viewer-status">Preparing a very important question…</span>
+        </div>
+        <div class="ai-window panel">
+          <div class="window-bar" aria-hidden="true"><i></i><i></i><i></i><span>ask-ai.exe</span></div>
+          <div class="conversation">
+            <div class="bubble user-bubble">
+              <p id="typed-prompt"></p><span id="cursor" class="cursor">▋</span>
+            </div>
+            <div id="thinking" class="thinking" hidden><span></span><span></span><span></span></div>
+            <div id="submitted" class="submitted" hidden>
+              <span class="check">✓</span>
+              <div><strong>Question submitted.</strong><p>See? That was not so hard.</p></div>
+            </div>
+          </div>
+        </div>
+        <div id="viewer-actions" class="viewer-actions" hidden>
+          <button id="copy-prompt" class="secondary-button" type="button">Copy the question</button>
+          <a class="text-button" href="/">Make your own</a>
+        </div>
+      </section>
+
+      <p class="footer">A playful AI-era tribute to a classic internet nudge.</p>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>

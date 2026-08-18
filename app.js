@@ -30,19 +30,33 @@
   function showCreator() { creator.hidden = false; share.hidden = true; viewer.hidden = true; }
   function showShare(prompt) { creator.hidden = true; share.hidden = false; viewer.hidden = true; shareLink.value = makeLink(prompt); }
 
+  const randomBetween = (minimum, maximum) => Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
+  const wait = (milliseconds) => new Promise(resolve => setTimeout(resolve, milliseconds));
+
+  function typingDelay(character, reducedMotion) {
+    if (reducedMotion) return 0;
+    // A steady-but-imperfect rhythm feels more like a person composing a question.
+    if (character === ' ' || character === '\n') return randomBetween(105, 230);
+    if (/[,.!?;:]/.test(character)) return randomBetween(220, 500);
+    if (Math.random() < 0.07) return randomBetween(280, 680);
+    return randomBetween(42, 96);
+  }
+
   async function playPrompt(prompt) {
     creator.hidden = true; share.hidden = true; viewer.hidden = false;
     typedPrompt.textContent = ''; thinking.hidden = true; submitted.hidden = true; viewerActions.hidden = true; cursor.hidden = false;
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const speed = reducedMotion ? 0 : Math.max(14, Math.min(34, 1150 / Math.max(prompt.length, 1)));
+    viewerStatus.textContent = 'Thinking of a good question…';
+    await wait(reducedMotion ? 0 : randomBetween(450, 900));
+    viewerStatus.textContent = 'Typing it out…';
     for (const character of prompt) {
       typedPrompt.textContent += character;
-      if (speed) await new Promise(resolve => setTimeout(resolve, speed));
+      await wait(typingDelay(character, reducedMotion));
     }
     cursor.hidden = true;
     viewerStatus.textContent = 'Sending this straight to AI…';
     thinking.hidden = false;
-    await new Promise(resolve => setTimeout(resolve, reducedMotion ? 0 : 1050));
+    await wait(reducedMotion ? 0 : randomBetween(900, 1400));
     thinking.hidden = true; submitted.hidden = false; viewerActions.hidden = false;
     viewerStatus.textContent = 'Mission accomplished.';
   }

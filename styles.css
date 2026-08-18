@@ -61,7 +61,7 @@ textarea:focus { border-color: var(--violet); box-shadow: 0 0 0 4px rgba(100, 57
 .submitted { display: flex; align-items: center; gap: .8rem; max-width: 28rem; margin-top: 1.25rem; padding: 1rem; border-radius: .9rem; border: 1px solid #bfe8cf; background: #f3fff7; color: #216a42; animation: rise .35s ease-out both; }
 .submitted .check { display: grid; place-items: center; flex: 0 0 auto; width: 1.7rem; height: 1.7rem; border-radius: 50%; color: white; background: #35a96b; font-weight: 900; }
 .submitted strong { font-size: .92rem; }.submitted p { margin: .16rem 0 0; font-size: .82rem; }
-.viewer-actions { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; }.viewer-actions .text-button { margin-top: 0; }
+.viewer-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 1rem; }.viewer-actions .text-button, .viewer-actions .primary-button { margin-top: 0; }
 .secondary-button { color: var(--violet); background: white; border: 1.5px solid #d9d1ed; }
 .footer { margin: 1.35rem 0 0; color: #8590a4; text-align: center; font-size: .74rem; }
 @keyframes blink { 50% { opacity: 0; } } @keyframes bounce { to { transform: translateY(-.28rem); opacity: .55; } } @keyframes rise { from { opacity: 0; transform: translateY(8px); } }

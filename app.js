@@ -13,12 +13,14 @@
   const submitted = document.querySelector('#submitted');
   const cursor = document.querySelector('#cursor');
   const viewerActions = document.querySelector('#viewer-actions');
+  const sendPerplexity = document.querySelector('#send-perplexity');
 
   const encodedPrompt = () => location.hash.startsWith('#ask=') ? location.hash.slice(5) : '';
   const readPrompt = () => {
     try { return decodeURIComponent(encodedPrompt()); } catch { return ''; }
   };
   const makeLink = (prompt) => `${location.origin}${location.pathname}#ask=${encodeURIComponent(prompt)}`;
+  const makePerplexityLink = (prompt) => `https://www.perplexity.ai/search/?q=${encodeURIComponent(prompt)}`;
 
   function copyText(text) {
     if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
@@ -45,6 +47,7 @@
   async function playPrompt(prompt) {
     creator.hidden = true; share.hidden = true; viewer.hidden = false;
     typedPrompt.textContent = ''; thinking.hidden = true; submitted.hidden = true; viewerActions.hidden = true; cursor.hidden = false;
+    sendPerplexity.href = makePerplexityLink(prompt);
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     viewerStatus.textContent = 'Thinking of a good question…';
     await wait(reducedMotion ? 0 : randomBetween(450, 900));
